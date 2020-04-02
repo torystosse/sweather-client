@@ -31,6 +31,13 @@ export default function HomeScreen() {
             <Button title={"Get Weather"}></Button>
         </View>
 
+        <View>
+          <Text>Location:</Text>
+          <Text>Temperature:</Text>
+          <Text>Humidity:</Text>
+          <Text>Conditions:</Text>
+        </View>
+
       </ScrollView>
 
 
