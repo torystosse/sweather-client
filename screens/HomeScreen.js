@@ -1,11 +1,47 @@
 import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
+// import * as React from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, TextInput, Button } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { MonoText } from '../components/StyledText';
 
-export default function HomeScreen() {
+import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+import config from '../config.js';
+
+// const Weather = props => {
+//   const [weather, setWeather] = useState(null)
+//
+//   // useEffect(() => {
+//   //   axios(`${config.url}/current?postal_code=${props.match.params.postal_code}/&key=${config.apikey}`)
+//   //     .then(res => setWeather(res.data))
+//   //     .catch(console.error)
+//   // }, [])
+//   }
+
+const getWeather = props => {
+    fetch(`${config.url}/current?postal_code=${props.match.params.postal_code}/&key=${config.apikey}`)
+      .then(res => setWeather(res.data))
+      .catch(console.error)
+
+}
+
+// let temperature = ''
+// if (!data) {
+//   temperature = 'Loading...'
+// } else {
+//   temperature = data.weather.temp
+// }
+
+
+export default function HomeScreen(props) {
+    const [weather, setWeather] = useState(null)
+
+    useEffect(() => {
+      fetch(`${config.url}/current/`)
+        .then(res => setWeather(res.data))
+        .catch(console.error)
+    }, [])
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -27,8 +63,7 @@ export default function HomeScreen() {
         <View style={styles.welcomeContainer}>
           <Text>Check out the weather for your area here:</Text>
             <TextInput style={styles.formInput}></TextInput>
-            <TextInput style={styles.formInput}></TextInput>
-            <Button title={"Get Weather"}></Button>
+            <Button title={"Get Weather"} onClick={getWeather}></Button>
         </View>
 
         <View>
